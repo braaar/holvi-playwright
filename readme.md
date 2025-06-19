@@ -8,6 +8,10 @@ Using [playwright](https://www.npmjs.com/package/playwright), this program launc
 
 This project is in the very early stages, so there are a number of ways the script can be made more robust and feature rich. Feel free to open an issue with bug reports or feature suggestions!
 
+## A word of advice
+
+This program logs into your bank in an invisible browser and has the power to do anything you could do when logged into the bank in your browser. You should read and understand the code before you run it. **Do not let an unknown computer program click around in your web bank!**
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download) (probably >=18)

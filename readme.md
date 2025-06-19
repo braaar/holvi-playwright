@@ -2,7 +2,7 @@
 
 Why use a web app when you can use a CLI?
 
-With this project you can downloading reports from the Finnish bank Holvi right in your terminal.
+With this project you can download reports from the Finnish bank Holvi right in your terminal.
 
 Using [playwright](https://www.npmjs.com/package/playwright), this program launches a headless browser that does all the clicking for you, while you follow the instructions as presented with an [inquirer](https://www.npmjs.com/package/@inquirer/prompts)-built CLI.
 

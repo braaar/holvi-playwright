@@ -38,4 +38,4 @@ Run the program:
 pnpm start
 ```
 
-You'll be asked which report you want and for which year (defaults to last year), and the report for 1 January–31 December of that year is saved as an `.xlsx` file. To watch the browser while it works, run `HEADED=1 pnpm start`.
+You'll be asked which report you want (general ledger, account statement or accounting journal) and for which year (defaults to last year), and the report for 1 January–31 December of that year is saved as an `.xlsx` file. To watch the browser while it works, run `HEADED=1 pnpm start`.

@@ -15,6 +15,7 @@ const choice = await select({
   choices: [
     { name: "General ledger", value: "General ledger" },
     { name: "Account statement", value: "Account statement" },
+    { name: "Accounting journal", value: "Accounting journal" },
   ],
 });
 
@@ -61,6 +62,10 @@ try {
       .locator("#generalLedger")
       .or(page.getByText(/^General ledger/))
       .first(),
+    "Accounting journal": page
+      .locator("#accountingJournal")
+      .or(page.getByText(/^Accounting journal/i))
+      .first(),
   };
   await reportLocators[choice].click();
 
@@ -75,7 +80,8 @@ try {
   const downloadPromise = page.waitForEvent("download", { timeout: 5 * 60_000 });
   await page
     .locator('[data-test="section-block"]')
-    .getByRole("link", { name: `Export "${choice}" as XLS` })
+    // match case-insensitively in case the link capitalises the report name differently
+    .getByRole("link", { name: new RegExp(`Export "${choice}" as XLS`, "i") })
     .click();
   console.log("Waiting for Holvi to generate the report...");
   const download = await downloadPromise;

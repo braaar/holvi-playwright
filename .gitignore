@@ -6,3 +6,5 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 error.png
+Account_statement.xlsx
+Accounting_journal_**.xlsx

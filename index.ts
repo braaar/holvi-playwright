@@ -1,5 +1,6 @@
 import playwright from "playwright";
 import { input, password, select } from "@inquirer/prompts";
+import { sendToKilta } from "./kilta.ts";
 
 // take in username and password from command line before starting the browser,
 // so the login page doesn't sit idle while we wait for input
@@ -31,6 +32,7 @@ const browser = await playwright.chromium.launch({
   headless: !process.env.HEADED,
 });
 const page = await browser.newPage();
+const filename = `${choice.replace(/ /g, "_")}_${year}.xlsx`;
 
 try {
   await page.goto("https://login.app.holvi.com/");
@@ -86,7 +88,6 @@ try {
   console.log("Waiting for Holvi to generate the report...");
   const download = await downloadPromise;
 
-  const filename = `${choice.replace(/ /g, "_")}_${year}.xlsx`;
   await download.saveAs(filename);
   console.log(`Download completed. File saved as ${filename}`);
 } catch (error) {
@@ -96,4 +97,13 @@ try {
   throw error;
 } finally {
   await browser.close();
+}
+
+// with KILTA_URL set, offer to import the journal into Kilta, the lab's
+// membership register, so nobody has to upload it by hand
+if (choice === "Accounting journal") {
+  await sendToKilta(filename).catch((error) => {
+    console.error(`Kilta: ${error.message}`);
+    process.exitCode = 1;
+  });
 }

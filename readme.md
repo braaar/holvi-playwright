@@ -39,3 +39,22 @@ pnpm start
 ```
 
 You'll be asked which report you want (general ledger, account statement or accounting journal) and for which year (defaults to last year), and the report for 1 January–31 December of that year is saved as an `.xlsx` file. To watch the browser while it works, run `HEADED=1 pnpm start`.
+
+## Importing the journal into Kilta
+
+[Kilta](https://github.com/HacklabJKL/kilta), Hacklab Jyväskylä's membership register, can import Holvi's accounting journal and credit members' payments from it. Set `KILTA_URL` and, after downloading the accounting journal, the program sends it to Kilta for review, shows what importing it would do (new and known transactions, where the payments go, anything that stops it) and asks whether to import it. Without `KILTA_URL` this step is skipped.
+
+- `KILTA_URL`: the lab's Kilta address, for example `https://kilta.example.org`.
+- `KILTA_TOKEN`: a bearer token for a board member or a script client, sent as `Authorization: Bearer $KILTA_TOKEN`. The import API is board only. Not needed against a local Kilta started with `-dev-open`.
+
+```sh
+KILTA_URL=https://kilta.example.org KILTA_TOKEN=... pnpm start
+```
+
+The lab's very first import also needs the day from which bank payments credit members; the program asks for it when Kilta says it's missing. Importing the same or an overlapping journal again is safe: Kilta stores and posts each transaction once.
+
+To send a journal you downloaded earlier, without logging into Holvi:
+
+```sh
+KILTA_URL=https://kilta.example.org KILTA_TOKEN=... pnpm kilta Accounting_journal_2025.xlsx
+```
